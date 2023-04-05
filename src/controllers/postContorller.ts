@@ -9,6 +9,28 @@ import { headers } from "../helpers/headers";
 
 class PostController {
   public static async getPosts(req: Request, res: Response): Promise<void> {
+    /**
+     * #swagger.tags = ["Posts - 貼文"]
+     * #swagger.description = "取得全部貼文 API"
+     * #swagger.responses[200] = {
+          description: "貼文資訊",
+          schema: {
+            "status": "success",
+            "data": {
+              "_id": "642d0601353890fcfa38ade5",
+              "content": "Ben",
+              "image": "",
+              "likes": 0,
+              "user": {
+                "_id": "642ac522734ec049aeb267ab",
+                "name": "Mary",
+                "photo": "https://thumb.fakeface.rest/thumb_female_30_8ab46617938c195cadf80bc11a96ce906a47c110.jpg"
+              },
+              "__v": 0
+            }
+          }
+        }
+      */
     try {
       const query: { timeSort?: string; q?: string } = req.query;
 
@@ -35,6 +57,22 @@ class PostController {
   }
 
   public static async createPost(req: Request, res: Response) {
+    /**
+     * #swagger.tags = ["Posts - 貼文"]
+     * #swagger.description = "取得全部貼文 API"
+     * #swagger.parameters["body"] = {
+          description: "資料格式",
+          in: "body",
+          type: "object",
+          required: true,
+          schema: {
+            content: "貼文內容",
+            image: "https://thumb.fakeface.rest/thumb_female_30_8ab46617938c195cadf80bc11a96ce906a47c110.jpg",
+            likes: 10000,
+            userId: "642c26ffc416156385cd7b67",
+          }
+       }
+      */
     try {
       const data = req.body;
 
@@ -58,6 +96,9 @@ class PostController {
   }
 
   public static async deletePost(req: Request, res: Response) {
+    /**
+     * #swagger.ignore = true // 忽略不顯示 API文件
+     */
     try {
       const postId = req.params.postId;
 

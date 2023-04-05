@@ -7,70 +7,182 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "tags": [
-    {
-      "name": "Posts",
-      "description": "APIs for Posts"
-    },
-    {
-      "name": "Comments",
-      "description": "APIs for Comments"
-    },
-    {
-      "name": "Users",
-      "description": "APIs for Users"
-    }
-  ],
   "schemes": [
     "http",
     "https"
   ],
-  "securityDefinitions": {
-    "jwt": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header"
-    }
-  },
   "paths": {
     "/posts": {
       "get": {
-        "description": "",
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "取得全部貼文 API",
         "parameters": [
           {
-            "name": "const",
+            "name": "description",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "schema",
             "in": "query",
             "type": "string"
           }
         ],
-        "responses": {}
-      },
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
+        "responses": {
+          "200": {
+            "description": "貼文資訊",
             "schema": {
               "type": "object",
               "properties": {
-                "userId": {
-                  "example": "any"
+                "status": {
+                  "type": "string",
+                  "example": "success"
                 },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "642d0601353890fcfa38ade5"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "Ben"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "likes": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "642ac522734ec049aeb267ab"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Mary"
+                        },
+                        "photo": {
+                          "type": "string",
+                          "example": "https://thumb.fakeface.rest/thumb_female_30_8ab46617938c195cadf80bc11a96ce906a47c110.jpg"
+                        }
+                      }
+                    },
+                    "__v": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "取得全部貼文 API",
+        "parameters": [
+          {
+            "name": "body",
+            "description": "資料格式",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
                 "content": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "貼文內容"
                 },
                 "image": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "https://thumb.fakeface.rest/thumb_female_30_8ab46617938c195cadf80bc11a96ce906a47c110.jpg"
                 },
                 "likes": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 10000
+                },
+                "userId": {
+                  "type": "string",
+                  "example": "642c26ffc416156385cd7b67"
                 }
               }
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "貼文資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "642d0601353890fcfa38ade5"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "Ben"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "likes": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "642ac522734ec049aeb267ab"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Mary"
+                        },
+                        "photo": {
+                          "type": "string",
+                          "example": "https://thumb.fakeface.rest/thumb_female_30_8ab46617938c195cadf80bc11a96ce906a47c110.jpg"
+                        }
+                      }
+                    },
+                    "__v": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
       },
       "delete": {
         "description": "",
@@ -80,18 +192,6 @@
     },
     "/posts/{postId}": {
       "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "postId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      },
-      "delete": {
         "description": "",
         "parameters": [
           {
@@ -229,13 +329,5 @@
       }
     }
   },
-  "forceSchemaTag": true,
-  "definitionPrefix": "I",
-  "basedir": "E:\\程式相關\\Self-learning\\Swagger\\src\\config",
-  "files": [
-    "./src/routers/*Router.ts"
-  ],
-  "routePath": "/api-docs",
-  "exposeSwaggerUI": true,
-  "exposeApiDocs": false
+  "forceSchemaTag": true
 }
