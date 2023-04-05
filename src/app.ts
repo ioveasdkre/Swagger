@@ -1,6 +1,6 @@
 import express, { Application } from "express";
 import swaggerUi from "swagger-ui-express";
-import { swaggerSpec } from "./config/swagger";
+import swaggerSpec from "../swagger_output.json";
 import { connectToDatabase } from "./connections/mongoDB";
 import { handle404Error, handleErrors } from "./middlewares/errorsMiddleware";
 import { PostRouter, UserRouter } from "./routers/index";
@@ -12,8 +12,8 @@ connectToDatabase();
 // 啟用 JSON 解析中介軟體
 app.use(express.json());
 
-app.use("/posts", PostRouter);
-app.use("/user", UserRouter);
+app.use(PostRouter);
+app.use(UserRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

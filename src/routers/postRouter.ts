@@ -1,15 +1,16 @@
+import express, { Router } from "express";
 import { PostController } from "../controllers/postContorller";
-import express from "express";
+import { addTag } from "../middlewares/addTag";
 
-const PostRouter = express.Router();
+const PostRouter: Router = express.Router();
 
-// 改為使用 Express 的路由處理
-PostRouter.route("")
+PostRouter.route("/posts")
+  .all(addTag("Posts", "/posts"))
   .get(PostController.getPosts)
   .post(PostController.createPost)
   .delete(PostController.deleteAllPosts);
 
-PostRouter.route("/:postId")
+PostRouter.route("/posts/:postId")
   .get(PostController.getPost)
   .patch(PostController.updatePost)
   .delete(PostController.deletePost)

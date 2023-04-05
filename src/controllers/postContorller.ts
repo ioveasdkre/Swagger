@@ -19,7 +19,7 @@ class PostController {
 
       const q = query.q !== undefined ? { content: new RegExp(query.q) } : {};
 
-      const posts: IPost[] = await Post.find(q)
+      const posts = await Post.find(q)
         .populate({
           path: "user",
           select: "name photo",
@@ -28,7 +28,7 @@ class PostController {
 
       if (!posts) return handleError(res);
 
-      return handleSuccess<IPost[]>(res, posts);
+      return handleSuccess<Omit<any, never>[]>(res, posts);
     } catch (error) {
       return handleError(res, error);
     }
