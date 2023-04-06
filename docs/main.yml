@@ -1,0 +1,12 @@
+openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+  description: APIs for managing user accounts
+tags:
+  - name: User
+    description: User management
+paths:
+  $ref: './user/user-api.yml#/'
+components:
+  $ref: './user/user-schema.yml#/'

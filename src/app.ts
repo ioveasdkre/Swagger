@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import swaggerUi from "swagger-ui-express";
-import swaggerSpec from "../swagger_output.json";
+import { swaggerSpec } from "./config/swagger2";
+// import swaggerSpec from "../swagger_output.json";
 import { connectToDatabase } from "./connections/mongoDB";
 import { handle404Error, handleErrors } from "./middlewares/errorsMiddleware";
 import { PostRouter, UserRouter } from "./routers/index";
@@ -13,7 +14,7 @@ connectToDatabase();
 app.use(express.json());
 
 app.use(PostRouter);
-app.use(UserRouter);
+app.use("/user", UserRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
