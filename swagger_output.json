@@ -11,6 +11,14 @@
     "http",
     "https"
   ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "headers",
+      "name": "authorization",
+      "description": "請加上 API Token"
+    }
+  },
   "paths": {
     "/posts": {
       "get": {
@@ -124,74 +132,30 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "貼文資訊",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "string",
-                  "example": "success"
-                },
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string",
-                      "example": "642d0601353890fcfa38ade5"
-                    },
-                    "content": {
-                      "type": "string",
-                      "example": "Ben"
-                    },
-                    "image": {
-                      "type": "string",
-                      "example": ""
-                    },
-                    "likes": {
-                      "type": "number",
-                      "example": 0
-                    },
-                    "user": {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string",
-                          "example": "642ac522734ec049aeb267ab"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Mary"
-                        },
-                        "photo": {
-                          "type": "string",
-                          "example": "https://thumb.fakeface.rest/thumb_female_30_8ab46617938c195cadf80bc11a96ce906a47c110.jpg"
-                        }
-                      }
-                    },
-                    "__v": {
-                      "type": "number",
-                      "example": 0
-                    }
-                  }
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [],
         "responses": {}
       }
     },
     "/posts/{postId}": {
       "get": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "貼文 ID"
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": [
+          "Posts - 貼文"
+        ],
         "description": "",
         "parameters": [
           {
@@ -201,7 +165,12 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {},
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "patch": {
         "description": "",
@@ -246,33 +215,7 @@
         "responses": {}
       }
     },
-    "/user": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "photo": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/user/{userId}": {
+    "/{userId}": {
       "get": {
         "description": "",
         "parameters": [
@@ -328,6 +271,5 @@
         "responses": {}
       }
     }
-  },
-  "forceSchemaTag": true
+  }
 }

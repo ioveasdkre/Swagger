@@ -9,7 +9,14 @@ const options: Options = {
   },
   host: "localhost:3000",
   schemes: ["http", "https"],
-  forceSchemaTag: true, // 強制在每個 schema 中加上 tag
+  securityDefinitions: {
+    apiKeyAuth: {
+      type: "apiKey",
+      in: "headers",
+      name: "authorization",
+      description: "請加上 API Token",
+    },
+  }, // 對應 PostController.deletePost
 };
 
 const outputFile = "./swagger_output.json";

@@ -97,7 +97,10 @@ class PostController {
 
   public static async deletePost(req: Request, res: Response) {
     /**
-     * #swagger.ignore = true // 忽略不顯示 API文件
+     * #swagger.tags = ["Posts - 貼文"]
+     * #swagger.security = [{
+          "apiKeyAuth": []
+       }]
      */
     try {
       const postId = req.params.postId;
@@ -115,6 +118,9 @@ class PostController {
   }
 
   public static async deleteAllPosts(_req: Request, res: Response) {
+    /**
+     * #swagger.ignore = true // 忽略不顯示 API文件
+     */
     try {
       await Post.deleteMany();
       return handleSuccess<null>(res, null);
@@ -153,6 +159,15 @@ class PostController {
   }
 
   public static async getPost(req: Request, res: Response) {
+    /**
+     * #swagger.tags = ["Posts - 貼文"]
+     * #swagger.parameters["postId"] = {
+          in: "path",
+          description: "貼文 ID",
+          type: "string",
+          required: true
+        }
+     */
     try {
       const postId = req.params.postId;
 
