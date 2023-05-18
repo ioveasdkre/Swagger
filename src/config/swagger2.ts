@@ -18,7 +18,18 @@ const options: Options = {
         description: "Development server (HTTPS)",
       },
     ],
+    components: {
+      securitySchemes: {
+        apiKeyAuth: {
+          type: "apiKey",
+          in: "headers",
+          name: "authorization",
+          description: "請加上 API Token",
+        },
+      },
+    },
   },
+
   apis: ["./docs/main.yml", "./docs/user/*.yml"],
 };
 
