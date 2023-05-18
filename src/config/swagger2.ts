@@ -4,18 +4,22 @@ const options: Options = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "User API",
+      title: "My API",
       version: "1.0.0",
-      description: "APIs for managing user accounts",
+      description: "API documentation",
     },
     servers: [
       {
         url: "http://localhost:3000",
-        description: "Development server",
+        description: "Development server (HTTP)",
+      },
+      {
+        url: "https://localhost:3000",
+        description: "Development server (HTTPS)",
       },
     ],
   },
-  apis: ["./src/docs/main.yml", "./src/docs/user/*.yml"],
+  apis: ["./docs/main.yml", "./docs/user/*.yml"],
 };
 
 // 透過 swagger-jsdoc 套件整合 Swagger 規範
